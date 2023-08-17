@@ -4,12 +4,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/google/go-querystring/query"
 	"os"
 	"time"
 )
 
-func AmadeusCitySearch(Search string) (citySearchResultsModel *CitySearchResultsModel, err error) {
-	url := getBaseUrl() + amadeusEndpointCitySearch + "?keyword=" + Search
+func AmadeusCitySearch(params CitySearchRequestModel) (citySearchResultsModel *CitySearchResultsModel, err error) {
+	urlParams, err := query.Values(params)
+	if err != nil {
+		return nil, errors.New(err.Error())
+	}
+	url := getBaseUrl() + amadeusEndpointCitySearch + "?" + urlParams.Encode()
 	result, status := apiAmadeusCall(url, nil)
 
 	if status == 200 {

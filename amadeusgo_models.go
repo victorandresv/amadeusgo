@@ -12,6 +12,13 @@ type Oauth2ResponseModel struct {
 	Scope           string `json:"scope"`
 }
 
+type CitySearchRequestModel struct {
+	Keyword     string   `url:"keyword"`
+	CountryCode string   `url:"countryCode,omitempty"`
+	Max         int      `url:"max,omitempty"`
+	Include     []string `url:"include,omitempty"`
+}
+
 type CitySearchResultsModel struct {
 	Meta struct {
 		Count int `json:"count"`
