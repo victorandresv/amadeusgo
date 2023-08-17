@@ -60,11 +60,3 @@ func apiRequest(url string, method string, bodyParams interface{}, headers map[s
 
 	return body, res.StatusCode
 }
-
-func writeResponse(response http.ResponseWriter, result []byte, status int) {
-	response.WriteHeader(status)
-	_, err := response.Write(result)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-}

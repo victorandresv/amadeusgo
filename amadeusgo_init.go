@@ -2,7 +2,7 @@ package amadeusgo
 
 var clientId string
 var clientSecret string
-var oauth2Data AmadeusOauth2ResponseModel
+var oauth2Data Oauth2ResponseModel
 
 func SetCredentials(ClientId string, ClientSecret string) {
 	clientId = ClientId

@@ -2,14 +2,23 @@ package amadeusgo
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"time"
 )
 
-func AmadeusCitySearch(Search string) (result []byte, status int) {
+func AmadeusCitySearch(Search string) (citySearchResultsModel *CitySearchResultsModel, err error) {
 	url := getBaseUrl() + amadeusEndpointCitySearch + "?keyword=" + Search
-	result, status = apiAmadeusCall(url, nil)
+	result, status := apiAmadeusCall(url, nil)
+
+	if status == 200 {
+		err := json.Unmarshal(result, &citySearchResultsModel)
+		if err != nil {
+			return nil, errors.New(err.Error())
+		}
+	}
+
 	return
 }
 
@@ -22,7 +31,7 @@ func apiAmadeusCall(url string, params *string) (result []byte, status int) {
 	return
 }
 
-func getAmadeusAccessToken() AmadeusOauth2ResponseModel {
+func getAmadeusAccessToken() Oauth2ResponseModel {
 
 	expirationLeft := int(time.Now().Unix())
 
@@ -40,7 +49,7 @@ func getAmadeusAccessToken() AmadeusOauth2ResponseModel {
 		data, status := apiRequest(getBaseUrl()+amadeusEndpointOauth2, "POST", params, headers)
 
 		if status == 200 {
-			var oauth2Response AmadeusOauth2ResponseModel
+			var oauth2Response Oauth2ResponseModel
 			err := json.Unmarshal(data, &oauth2Response)
 			if err == nil {
 				oauth2Response.ExpiresIn = int(time.Now().Unix()) + oauth2Response.ExpiresIn
