@@ -9,49 +9,35 @@ import (
 	"time"
 )
 
-/*
-func AmadeusHotelSearchByCity(params HotelSearchByCityRequestModel) (hotelSearchResultsModel *HotelSearchByCityResultsModel, err error) {
-	urlParams, err := query.Values(params)
-	if err != nil {
-		return nil, errors.New(err.Error())
-	}
-	url := getBaseUrl() + amadeusEndpointHotelSearchByCity + "?" + urlParams.Encode()
+func HotelSearchByGeocode(params HotelSearchByGeocodeRequestModel) (resultsModel *HotelSearchByGeocodeResultsModel, err error) {
+	url := apiAmadeusPrepareCall(params, amadeusEndpointHotelSearchByGeocode)
 	result, status := apiAmadeusCall(url, nil)
-
 	if status == 200 {
-		err := json.Unmarshal(result, &hotelSearchResultsModel)
+		err := json.Unmarshal(result, &resultsModel)
 		if err != nil {
 			return nil, errors.New(err.Error())
 		}
 	}
-
 	return
 }
-*/
 
-func AmadeusHotelSearch(params HotelSearchRequestModel) (hotelSearchResultsModel *HotelSearchResultsModel, err error) {
-	urlParams, err := query.Values(params)
-	if err != nil {
-		return nil, errors.New(err.Error())
-	}
-	url := getBaseUrl() + amadeusEndpointHotelSearch + "?" + urlParams.Encode()
+func HotelSearch(params HotelSearchRequestModel) (resultsModel *HotelSearchResultsModel, err error) {
+	url := apiAmadeusPrepareCall(params, amadeusEndpointHotelSearch)
 	result, status := apiAmadeusCall(url, nil)
-
 	if status == 200 {
-		err := json.Unmarshal(result, &hotelSearchResultsModel)
+		err := json.Unmarshal(result, &resultsModel)
 		if err != nil {
 			return nil, errors.New(err.Error())
 		}
 	}
-
 	return
 }
 
-func CitySearch(params CitySearchRequestModel) (citySearchResultsModel *CitySearchResultsModel, err error) {
+func CitySearch(params CitySearchRequestModel) (resultsModel *CitySearchResultsModel, err error) {
 	url := apiAmadeusPrepareCall(params, amadeusEndpointCitySearch)
 	result, status := apiAmadeusCall(url, nil)
 	if status == 200 {
-		err := json.Unmarshal(result, &citySearchResultsModel)
+		err := json.Unmarshal(result, &resultsModel)
 		if err != nil {
 			return nil, err
 		}
