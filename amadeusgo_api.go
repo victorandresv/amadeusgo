@@ -22,19 +22,6 @@ func HotelSearchByGeocode(params HotelSearchByGeocodeRequestModel) (resultsModel
 	return
 }
 
-// HotelSearch Search hotel list for autocomplete purpose by keyword
-func HotelSearch(params HotelSearchRequestModel) (resultsModel *HotelSearchResultsModel, err error) {
-	url := apiAmadeusPrepareCall(params, endpointHotelSearch)
-	result, status := apiAmadeusCall(url, nil)
-	if status == 200 {
-		err := json.Unmarshal(result, &resultsModel)
-		if err != nil {
-			return nil, errors.New(err.Error())
-		}
-	}
-	return
-}
-
 // Make an Amadeus API call
 func apiAmadeusCall(url string, params *string) (result []byte, status int) {
 	accessToken := getAmadeusAccessToken()
