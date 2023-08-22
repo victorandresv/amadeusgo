@@ -9,6 +9,24 @@ import (
 	"time"
 )
 
+func AmadeusHotelSearch(params HotelSearchRequestModel) (hotelSearchResultsModel *CitySearchResultsModel, err error) {
+	urlParams, err := query.Values(params)
+	if err != nil {
+		return nil, errors.New(err.Error())
+	}
+	url := getBaseUrl() + amadeusEndpointHotelSearch + "?" + urlParams.Encode()
+	result, status := apiAmadeusCall(url, nil)
+
+	if status == 200 {
+		err := json.Unmarshal(result, &hotelSearchResultsModel)
+		if err != nil {
+			return nil, errors.New(err.Error())
+		}
+	}
+
+	return
+}
+
 func AmadeusCitySearch(params CitySearchRequestModel) (citySearchResultsModel *CitySearchResultsModel, err error) {
 	urlParams, err := query.Values(params)
 	if err != nil {

@@ -12,6 +12,14 @@ type Oauth2ResponseModel struct {
 	Scope           string `json:"scope"`
 }
 
+type HotelSearchRequestModel struct {
+	Keyword     string `url:"keyword"`
+	SubType     string `url:"subType"`
+	CountryCode string `url:"countryCode,omitempty"`
+	Lang        string `url:"lang,omitempty"`
+	Max         string `url:"max,omitempty"`
+}
+
 type CitySearchRequestModel struct {
 	Keyword     string   `url:"keyword"`
 	CountryCode string   `url:"countryCode,omitempty"`
