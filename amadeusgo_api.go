@@ -9,24 +9,23 @@ import (
 	"time"
 )
 
-func HotelSearchOffers(params HotelSearchOffersRequestModel) (resultsModel *HotelSearchOffersResultsModel, err error) {
-	url := apiAmadeusPrepareCall(params, amadeusEndpointHotelSearchOffers)
-	fmt.Println(url)
+// HotelSearchOffers Search hotel availability and prices
+func HotelSearchOffers(params HotelSearchOffersRequestModel) (resultsModel *HotelSearchOffersResultsModel, resultsString string, err error) {
+	url := apiAmadeusPrepareCall(params, endpointHotelSearchOffers)
 	result, status := apiAmadeusCall(url, nil)
 	if status == 200 {
 		err := json.Unmarshal(result, &resultsModel)
 		if err != nil {
-			return nil, errors.New(err.Error())
+			return nil, "", errors.New(err.Error())
 		}
-	} else {
-		fmt.Println("status")
-		fmt.Println(status)
+		resultsString = string(result)
 	}
 	return
 }
 
+// HotelSearchByGeocode Search hotel list for autocomplete purpose by geocode coordinates
 func HotelSearchByGeocode(params HotelSearchByGeocodeRequestModel) (resultsModel *HotelSearchByGeocodeResultsModel, err error) {
-	url := apiAmadeusPrepareCall(params, amadeusEndpointHotelSearchByGeocode)
+	url := apiAmadeusPrepareCall(params, endpointHotelSearchByGeocode)
 	result, status := apiAmadeusCall(url, nil)
 	if status == 200 {
 		err := json.Unmarshal(result, &resultsModel)
@@ -37,8 +36,9 @@ func HotelSearchByGeocode(params HotelSearchByGeocodeRequestModel) (resultsModel
 	return
 }
 
+// HotelSearch Search hotel list for autocomplete purpose by keyword
 func HotelSearch(params HotelSearchRequestModel) (resultsModel *HotelSearchResultsModel, err error) {
-	url := apiAmadeusPrepareCall(params, amadeusEndpointHotelSearch)
+	url := apiAmadeusPrepareCall(params, endpointHotelSearch)
 	result, status := apiAmadeusCall(url, nil)
 	if status == 200 {
 		err := json.Unmarshal(result, &resultsModel)
@@ -49,8 +49,9 @@ func HotelSearch(params HotelSearchRequestModel) (resultsModel *HotelSearchResul
 	return
 }
 
+// CitySearch Search city autocomplete list
 func CitySearch(params CitySearchRequestModel) (resultsModel *CitySearchResultsModel, err error) {
-	url := apiAmadeusPrepareCall(params, amadeusEndpointCitySearch)
+	url := apiAmadeusPrepareCall(params, endpointCitySearch)
 	result, status := apiAmadeusCall(url, nil)
 	if status == 200 {
 		err := json.Unmarshal(result, &resultsModel)
@@ -61,15 +62,16 @@ func CitySearch(params CitySearchRequestModel) (resultsModel *CitySearchResultsM
 	return
 }
 
+// Make an Amadeus API call
 func apiAmadeusCall(url string, params *string) (result []byte, status int) {
 	accessToken := getAmadeusAccessToken()
-
 	var headers = make(map[string]string)
 	headers["Authorization"] = "Bearer " + accessToken.AccessToken
 	result, status = apiRequest(url, "GET", params, headers)
 	return
 }
 
+// Convert params object to url params and return the final url
 func apiAmadeusPrepareCall(params interface{}, endpoint string) string {
 	urlParams, err := query.Values(params)
 	if err != nil {
@@ -78,6 +80,7 @@ func apiAmadeusPrepareCall(params interface{}, endpoint string) string {
 	return getBaseUrl() + endpoint + "?" + urlParams.Encode()
 }
 
+// Get Amadeus Access Token
 func getAmadeusAccessToken() Oauth2ResponseModel {
 
 	expirationLeft := int(time.Now().Unix())
@@ -93,7 +96,7 @@ func getAmadeusAccessToken() Oauth2ResponseModel {
 
 		var headers = make(map[string]string)
 		headers["Content-Type"] = "application/x-www-form-urlencoded"
-		data, status := apiRequest(getBaseUrl()+amadeusEndpointOauth2, "POST", params, headers)
+		data, status := apiRequest(getBaseUrl()+endpointOauth2, "POST", params, headers)
 
 		if status == 200 {
 			var oauth2Response Oauth2ResponseModel

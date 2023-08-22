@@ -13,19 +13,19 @@ type Oauth2ResponseModel struct {
 }
 
 type HotelSearchOffersRequestModel struct {
-	HotelIds           []string `url:"hotelIds"`
-	Adults             int32    `url:"adults,omitempty"`
-	CheckInDate        string   `url:"checkInDate,omitempty"`
-	CheckOutDate       string   `url:"checkOutDate,omitempty"`
-	CountryOfResidence string   `url:"countryOfResidence,omitempty"`
-	RoomQuantity       int32    `url:"roomQuantity,omitempty"`
-	PriceRange         string   `url:"priceRange,omitempty"`
-	Currency           string   `url:"currency,omitempty"`
-	PaymentPolicy      string   `url:"paymentPolicy,omitempty"`
-	BoardType          string   `url:"boardType,omitempty"`
-	IncludeClosed      bool     `url:"includeClosed,omitempty"`
-	BestRateOnly       bool     `url:"bestRateOnly,omitempty"`
-	Lang               string   `url:"lang,omitempty"`
+	HotelIds           string `url:"hotelIds"`
+	Adults             int32  `url:"adults,omitempty"`
+	CheckInDate        string `url:"checkInDate,omitempty"`
+	CheckOutDate       string `url:"checkOutDate,omitempty"`
+	CountryOfResidence string `url:"countryOfResidence,omitempty"`
+	RoomQuantity       int32  `url:"roomQuantity,omitempty"`
+	PriceRange         string `url:"priceRange,omitempty"`
+	Currency           string `url:"currency,omitempty"`
+	PaymentPolicy      string `url:"paymentPolicy,omitempty"`
+	BoardType          string `url:"boardType,omitempty"`
+	IncludeClosed      bool   `url:"includeClosed,omitempty"`
+	BestRateOnly       bool   `url:"bestRateOnly,omitempty"`
+	Lang               string `url:"lang,omitempty"`
 }
 
 type HotelSearchOffersResultsModel struct {

@@ -1,11 +1,11 @@
 package amadeusgo
 
 const (
-	amadeusEndpointOauth2               string = "/v1/security/oauth2/token"
-	amadeusEndpointCitySearch           string = "/v1/reference-data/locations/cities"
-	amadeusEndpointHotelSearch          string = "/v1/reference-data/locations/hotel"
-	amadeusEndpointHotelSearchByGeocode string = "/v1/reference-data/locations/hotels/by-geocode"
-	amadeusEndpointHotelSearchOffers    string = "/v3/shopping/hotel-offers"
+	endpointOauth2               string = "/v1/security/oauth2/token"
+	endpointCitySearch           string = "/v1/reference-data/locations/cities"
+	endpointHotelSearch          string = "/v1/reference-data/locations/hotel"
+	endpointHotelSearchByGeocode string = "/v1/reference-data/locations/hotels/by-geocode"
+	endpointHotelSearchOffers    string = "/v3/shopping/hotel-offers"
 )
 
 const (
