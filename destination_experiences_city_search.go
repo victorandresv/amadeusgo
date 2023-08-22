@@ -3,18 +3,18 @@ package amadeusgo
 import "encoding/json"
 
 const (
-	endpointCitySearch      string = "/v1/reference-data/locations/cities"
-	CitySearchParamAirports string = "AIRPORTS"
+	endpointCitySearch                            string = "/v1/reference-data/locations/cities"
+	DestinationExperiencesCitySearchParamAirports string = "AIRPORTS"
 )
 
-type CitySearchRequestModel struct {
+type DestinationExperiencesCitySearchRequest struct {
 	Keyword     string   `url:"keyword"`
 	CountryCode string   `url:"countryCode,omitempty"`
 	Max         int      `url:"max,omitempty"`
 	Include     []string `url:"include,omitempty"`
 }
 
-type CitySearchResultsModel struct {
+type DestinationExperiencesCitySearchResults struct {
 	Meta struct {
 		Count int `json:"count"`
 		Links struct {
@@ -43,8 +43,9 @@ type CitySearchResultsModel struct {
 	} `json:"included"`
 }
 
-// CitySearch Search city autocomplete list
-func CitySearch(params CitySearchRequestModel) (resultsModel *CitySearchResultsModel, data string, err error) {
+// DestinationExperiencesCitySearch Search city autocomplete list
+func DestinationExperiencesCitySearch(params DestinationExperiencesCitySearchRequest) (*DestinationExperiencesCitySearchResults, string, error) {
+	var resultsModel *DestinationExperiencesCitySearchResults
 	url := apiAmadeusPrepareCall(params, endpointCitySearch)
 	result, status := apiAmadeusCall(url, nil)
 	if status == 200 {
@@ -52,7 +53,6 @@ func CitySearch(params CitySearchRequestModel) (resultsModel *CitySearchResultsM
 		if err != nil {
 			return nil, "", err
 		}
-		data = string(result)
 	}
-	return
+	return resultsModel, string(result), nil
 }
