@@ -9,20 +9,6 @@ import (
 	"time"
 )
 
-// HotelSearchOffers Search hotel availability and prices
-func HotelSearchOffers(params HotelSearchOffersRequestModel) (resultsModel *HotelSearchOffersResultsModel, resultsString string, err error) {
-	url := apiAmadeusPrepareCall(params, endpointHotelSearchOffers)
-	result, status := apiAmadeusCall(url, nil)
-	if status == 200 {
-		err := json.Unmarshal(result, &resultsModel)
-		if err != nil {
-			return nil, "", errors.New(err.Error())
-		}
-		resultsString = string(result)
-	}
-	return
-}
-
 // HotelSearchByGeocode Search hotel list for autocomplete purpose by geocode coordinates
 func HotelSearchByGeocode(params HotelSearchByGeocodeRequestModel) (resultsModel *HotelSearchByGeocodeResultsModel, err error) {
 	url := apiAmadeusPrepareCall(params, endpointHotelSearchByGeocode)
