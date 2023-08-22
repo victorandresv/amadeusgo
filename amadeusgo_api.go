@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func AmadeusHotelSearch(params HotelSearchRequestModel) (hotelSearchResultsModel *CitySearchResultsModel, err error) {
+func AmadeusHotelSearch(params HotelSearchRequestModel) (hotelSearchResultsModel *HotelSearchResultsModel, err error) {
 	urlParams, err := query.Values(params)
 	if err != nil {
 		return nil, errors.New(err.Error())
