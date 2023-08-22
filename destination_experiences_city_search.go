@@ -8,10 +8,10 @@ const (
 )
 
 type DestinationExperiencesCitySearchRequest struct {
-	Keyword     string   `url:"keyword"`
-	CountryCode string   `url:"countryCode,omitempty"`
-	Max         int      `url:"max,omitempty"`
-	Include     []string `url:"include,omitempty"`
+	Keyword     string `url:"keyword"`
+	CountryCode string `url:"countryCode,omitempty"`
+	Max         int    `url:"max,omitempty"`
+	Include     string `url:"include,omitempty"`
 }
 
 type DestinationExperiencesCitySearchResults struct {
