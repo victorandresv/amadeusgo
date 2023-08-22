@@ -5,6 +5,7 @@ const (
 	amadeusEndpointCitySearch           string = "/v1/reference-data/locations/cities"
 	amadeusEndpointHotelSearch          string = "/v1/reference-data/locations/hotel"
 	amadeusEndpointHotelSearchByGeocode string = "/v1/reference-data/locations/hotels/by-geocode"
+	amadeusEndpointHotelSearchOffers    string = "/v3/shopping/hotel-offers"
 )
 
 const (
