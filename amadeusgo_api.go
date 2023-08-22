@@ -9,6 +9,26 @@ import (
 	"time"
 )
 
+/*
+func AmadeusHotelSearchByCity(params HotelSearchByCityRequestModel) (hotelSearchResultsModel *HotelSearchByCityResultsModel, err error) {
+	urlParams, err := query.Values(params)
+	if err != nil {
+		return nil, errors.New(err.Error())
+	}
+	url := getBaseUrl() + amadeusEndpointHotelSearchByCity + "?" + urlParams.Encode()
+	result, status := apiAmadeusCall(url, nil)
+
+	if status == 200 {
+		err := json.Unmarshal(result, &hotelSearchResultsModel)
+		if err != nil {
+			return nil, errors.New(err.Error())
+		}
+	}
+
+	return
+}
+*/
+
 func AmadeusHotelSearch(params HotelSearchRequestModel) (hotelSearchResultsModel *HotelSearchResultsModel, err error) {
 	urlParams, err := query.Values(params)
 	if err != nil {
@@ -27,21 +47,15 @@ func AmadeusHotelSearch(params HotelSearchRequestModel) (hotelSearchResultsModel
 	return
 }
 
-func AmadeusCitySearch(params CitySearchRequestModel) (citySearchResultsModel *CitySearchResultsModel, err error) {
-	urlParams, err := query.Values(params)
-	if err != nil {
-		return nil, errors.New(err.Error())
-	}
-	url := getBaseUrl() + amadeusEndpointCitySearch + "?" + urlParams.Encode()
+func CitySearch(params CitySearchRequestModel) (citySearchResultsModel *CitySearchResultsModel, err error) {
+	url := apiAmadeusPrepareCall(params, amadeusEndpointCitySearch)
 	result, status := apiAmadeusCall(url, nil)
-
 	if status == 200 {
 		err := json.Unmarshal(result, &citySearchResultsModel)
 		if err != nil {
-			return nil, errors.New(err.Error())
+			return nil, err
 		}
 	}
-
 	return
 }
 
@@ -52,6 +66,14 @@ func apiAmadeusCall(url string, params *string) (result []byte, status int) {
 	headers["Authorization"] = "Bearer " + accessToken.AccessToken
 	result, status = apiRequest(url, "GET", params, headers)
 	return
+}
+
+func apiAmadeusPrepareCall(params interface{}, endpoint string) string {
+	urlParams, err := query.Values(params)
+	if err != nil {
+		return ""
+	}
+	return getBaseUrl() + endpoint + "?" + urlParams.Encode()
 }
 
 func getAmadeusAccessToken() Oauth2ResponseModel {

@@ -12,6 +12,16 @@ type Oauth2ResponseModel struct {
 	Scope           string `json:"scope"`
 }
 
+type HotelSearchByCityRequestModel struct {
+	CityCode    string   `url:"cityCode"`
+	Radius      string   `url:"radius,omitempty"`
+	RadiusUnit  string   `url:"radiusUnit,omitempty"`
+	ChainCodes  []string `url:"chainCodes,omitempty"`
+	Amenities   []string `url:"amenities,omitempty"`
+	Ratings     []string `url:"ratings,omitempty"`
+	HotelSource []string `url:"hotelSource,omitempty"`
+}
+
 type HotelSearchRequestModel struct {
 	Keyword     string `url:"keyword"`
 	SubType     string `url:"subType"`
@@ -19,6 +29,7 @@ type HotelSearchRequestModel struct {
 	Lang        string `url:"lang,omitempty"`
 	Max         string `url:"max,omitempty"`
 }
+
 type HotelSearchResultsModel struct {
 	Data []struct {
 		Id        int      `json:"id"`
@@ -66,4 +77,11 @@ type CitySearchResultsModel struct {
 			Longitude float64 `json:"longitude"`
 		} `json:"geoCode"`
 	} `json:"data"`
+	Included struct {
+		Airports map[string]struct {
+			Name     string `json:"name"`
+			IataCode string `json:"iataCode"`
+			SubType  string `json:"subType"`
+		} `json:"airports"`
+	} `json:"included"`
 }
