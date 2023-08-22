@@ -49,19 +49,6 @@ func HotelSearch(params HotelSearchRequestModel) (resultsModel *HotelSearchResul
 	return
 }
 
-// CitySearch Search city autocomplete list
-func CitySearch(params CitySearchRequestModel) (resultsModel *CitySearchResultsModel, err error) {
-	url := apiAmadeusPrepareCall(params, endpointCitySearch)
-	result, status := apiAmadeusCall(url, nil)
-	if status == 200 {
-		err := json.Unmarshal(result, &resultsModel)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return
-}
-
 // Make an Amadeus API call
 func apiAmadeusCall(url string, params *string) (result []byte, status int) {
 	accessToken := getAmadeusAccessToken()
